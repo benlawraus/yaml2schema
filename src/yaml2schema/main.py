@@ -1,8 +1,8 @@
 """Contains functions that read yaml (anvil.yaml or openapi.yaml) and generates model files.
 Main does:
     - Reads in anvil.yaml and generates same in openapi.yaml format
-    - Reads in yaml and generate a file of pydantic models.
-    - Reads in yaml and generate a pydal definition of the database schema."""
+    - Reads in (anvil or openapi) yaml and generate a file of pydantic models.
+    - Reads in (anvil or openapi) yaml and generate a pydal definition of the database schema."""
 
 import datamodel_code_generator as dcg
 
@@ -17,18 +17,19 @@ import strictyaml as sy
 
 def main():
     input_yaml = "input/anvil.yaml"
+    # if there is anvil.yaml, converts to openapi.yaml
     try:
         anvil_yaml, newline_list = readfile(input_yaml, "")
         db_str = anvil_yaml[anvil_yaml.find('db_schema'):]
         parsed_yaml = sy.dirty_load(yaml_string=db_str, schema=anvil_yaml_schema(), allow_flow_style=True)
         # convert to OPENAPI strict YAML
         open_api_yaml = convert_anvil_to_openapi_yaml(parsed_yaml)
+    # if no anvil.yaml, read in the openapi.yaml
     except FileNotFoundError:
         input_yaml = "input/openapi.yaml"
         open_yaml, newline_list = readfile(input_yaml, "")
         db_str = open_yaml[open_yaml.find('components'):]
         open_api_yaml = sy.dirty_load(yaml_string=db_str, schema=openapi_schema(), allow_flow_style=False)
-        # open_api_yaml = sy.dirty_load(yaml_string=db_str, schema=openapi_preamble_schema(), allow_flow_style=False)
 
     # reorder so that no table is referenced before it is defined
     ordered_openapi_yaml = reorder_openapi_yaml(open_api_yaml,
@@ -40,18 +41,15 @@ def main():
         f_out.write(ordered_openapi_yaml.as_yaml())
 
     dcg.generate(
-        open_api_yaml.as_yaml(),
+        open_api_yaml.as_yaml(),  # do not need ordered yaml here as dcg will also order it.
         input_file_type=dcg.InputFileType.OpenAPI,
         input_filename="input/anvil.yaml",
         output=build_path("output/db_models.py", "."))
-    # base_class="SQLModel",     future work
+    # generate the pyDAL schema definitions
     pydal_def = openapi_to_pydal(ordered_openapi_yaml)
     with open("output/pydal_def.py", "w") as f_out:
         f_out.write('\n'.join(pydal_def))
-
-    # yaml_file = sy.as_document(openapi_preamble(), openapi_preamble_schema())
-    # yaml_file['components'] = compyaml
-    # return yaml_file
+    return
 
 
 if __name__ == '__main__':

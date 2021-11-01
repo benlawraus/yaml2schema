@@ -4,6 +4,23 @@ Generates openapi, `pydal <https://py4web.com/_documentation/static/en/chapter-0
 and class (or pydantic)  definitions of database schema from `anvil.yaml <https://anvil.works>`_ or
 `openapi.yaml <https://swagger.io/docs/specification/about/>`_
 
+Why is it here?
+---------------
+*pycharm* is awesome. *pytest* is awesome. *pyDAL* is awesome. *anvil.works* is awesome.
+Why can't we use these mountains of awesomeness together?
+This repo can used with `pyDALAnvilWorks <https://github.com/benlawraus/pyDALAnvilWorks>`_ to do just that.
+When you clone your *anvil.works* app onto your computer, run this program to generate a *pyDAL* schema file.
+You know what I mean if you use *pyDAL*, it starts something like this::
+
+    db.define_table(....
+
+describing your database schema.
+
+Once you got that, you can copy and paste the `anvil` directory from `pyDALAnvilWorks <https://github.com/benlawraus/pyDALAnvilWorks>`_
+into your *anvil.works* app.
+
+Now you have a `sqlite` database for your app amd you can use *pytest* from your *pycharm* IDE.
+
 What is it for?
 ---------------
 `pydal <https://py4web.com/_documentation/static/en/chapter-07.html>`_ is a very good database abstraction layer (DAL)
@@ -73,6 +90,5 @@ simpleObject  column_liststr array   string    List[str]   list:string     array
 TODO
 ------
 - separate the functions into options
-- at moment, program reads anvil.yaml format, and generates openapi format. Hence, minor change to read in an openapi format file.
 - anvil.works has `number` type that can be `int` or `float`. This program only uses `int`. Need to change this so that `float`, `double` etc can be used
 - anvil.works has `simpleobject` i.e. `json`. `list:integer` and `list:string` are implemented but needs more work to specify as pure `json`
