@@ -76,7 +76,7 @@ How to use it?
 
 Example
 ^^^^^^^^
-Here is an example run in the terminal::
+Here is an example run in the terminal (good for python3.7)::
 
     mkdir work
     cd work
