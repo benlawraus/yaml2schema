@@ -1,10 +1,11 @@
+from typing import List
 
 import strictyaml as sy
 
 from y2s_reorder import extract_type_of_field
 
 
-def openapi_to_pydal(ordered_openapi_yaml: sy.YAML) -> list[str]:
+def openapi_to_pydal(ordered_openapi_yaml: sy.YAML) -> List[str]:
     """Converts open api yaml describing the database into a pydal definition string such as:
         db.define_table("my_table",Field("my_column","")
 
