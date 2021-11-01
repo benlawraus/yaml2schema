@@ -24,9 +24,7 @@ Now you have a `sqlite` database for your app and you can use *pytest* from your
 What is it for?
 ---------------
 `pydal <https://py4web.com/_documentation/static/en/chapter-07.html>`_ is a very good database abstraction layer (DAL)
-for python handling of just about any database including `sqlite`. The motivation for writing this project was to use 
-pydal locally so that tests can be run locally and not on external servers.
-
+for python handling of just about any database including `sqlite`.
 
 BUT you do not need to use *pyDAL*, because you can also use it to generate class definitions of your tables (this repo uses `datamodel-code-generator` to do that)
 It also converts your `anvil.yaml` into `openapi.yaml` if want to use some other yaml converter.
@@ -62,20 +60,6 @@ The file structure is as follows::
 
 How to use it?
 --------------
-
-
-
-#.  You need to supply a `yaml` file, either `anvil.yaml` (created with your repo on `anvil.yaml <https://anvil.works>`_)
-    or `openapi.yaml` which has the `components` section of the `openapi` standard.
-#.  Some types are not implemented yet. What is implemented has some additional caveats.
-
-`number`
-           is implemented as integer.
-`list:integer` and `list:string`
-           are implemented from `simpleObject` in `anvil`. To differentiate, the column name must end in `_listint` or `_liststr`.
-
-Example
-^^^^^^^^
 Here is an example run in the terminal (good for python3.7)::
 
     mkdir work
@@ -88,6 +72,16 @@ Here is an example run in the terminal (good for python3.7)::
     cd yaml2schema/src/yaml2schema
     # change input/anvil.yaml or input/openapi.yaml
     python3 main.py
+    # checkout your changes in the files in the output/ directory
+
+#.  You need to supply a `yaml` file, either `anvil.yaml` (created with your repo on `anvil.yaml <https://anvil.works>`_)
+    or `openapi.yaml` which has the `components` section of the `openapi` standard.
+#.  Some types are not implemented yet. What is implemented has some additional caveats.
+
+`number`
+           is implemented as integer.
+`list:integer` and `list:string`
+           are implemented from `simpleObject` in `anvil`. To differentiate, the column name must end in `_listint` or `_liststr`. You don't need to do anything special if you start with an `openapi.yaml` file.
 
 
 
