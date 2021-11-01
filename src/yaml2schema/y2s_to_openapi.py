@@ -1,8 +1,8 @@
 import strictyaml as sy
 from collections import OrderedDict
 
-from src.yaml2schema.y2s_constants import OPENAPI_FORMATS, OPENAPI_TYPES
-from src.yaml2schema.y2s_schema import openapi_schema
+from y2s_constants import OPENAPI_FORMATS, OPENAPI_TYPES
+from y2s_schema import openapi_schema
 
 
 def convert_anvil_to_openapi_yaml(anvil_yaml: sy.YAML) -> sy.YAML:
