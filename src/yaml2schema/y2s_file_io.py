@@ -1,12 +1,13 @@
 import pathlib
-from typing import Tuple
+from typing import Tuple, List
+
 
 def build_path(filename, directory='source') -> pathlib.Path:
     root = pathlib.Path.cwd() / directory / filename
     return root
 
 
-def readfile(filename: str, directory: str = 'source') -> Tuple[str, list[str]]:
+def readfile(filename: str, directory: str = 'source') -> Tuple[str, List[str]]:
     """Reads a file and outputs the text and an array of newline characters
     used at the end of each line.
 
