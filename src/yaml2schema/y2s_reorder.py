@@ -110,7 +110,7 @@ def extract_type_of_field(db_field: sy.YAML) -> Tuple[str, str]:
     return type_of, reference
 
 
-def reorder_tables(openapi_yaml: sy.YAML) -> list[sy.Str]:
+def reorder_tables(openapi_yaml: sy.YAML) -> List[sy.Str]:
     """Orders the tables so no table references another table that might be defined after.
 
     Parameters
