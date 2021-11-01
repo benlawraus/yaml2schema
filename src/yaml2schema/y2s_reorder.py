@@ -1,13 +1,13 @@
-from typing import Optional
+from typing import Optional, Dict, List, Tuple
 
 import strictyaml as sy
 from collections import OrderedDict
 
-from src.yaml2schema.y2s_constants import OPENAPI_FORMATS
-from src.yaml2schema.y2s_schema import openapi_schema
+from y2s_constants import OPENAPI_FORMATS
+from y2s_schema import openapi_schema
 
 
-def key_of_value(dict_: dict, value) -> str:
+def key_of_value(dict_: Dict, value) -> str:
     """Returns the first key of the corresponding value in the dict.
     """
     return next((k for k, v in dict_.items() if v == value), None)
@@ -35,9 +35,9 @@ def find_type_of_string(sy_dict: sy.YAML) -> str:
 
 
 def yaml_recursive_add_to_table(
-        tables_in_order: list[str],
+        tables_in_order: List[str],
         table_name: str,
-        do_later: list[dict]):
+        do_later: List[Dict]):
     """Recursive function to move do_later tables to the tables_in_order list. Of course it only does this
     if the do_later table has all its references previously inserted into tables_in_order.
 
@@ -67,7 +67,7 @@ def yaml_recursive_add_to_table(
     return
 
 
-def extract_type_of_field(db_field: sy.YAML) -> tuple[str, str]:
+def extract_type_of_field(db_field: sy.YAML) -> Tuple[str, str]:
     """Extracts type of field aka column in db. If type is a reference, output that too.
 
     Parameters
@@ -152,7 +152,7 @@ def reorder_tables(openapi_yaml: sy.YAML) -> list[sy.Str]:
     return tables_in_order
 
 
-def reorder_openapi_yaml(openapi_yaml: sy.YAML, tables_in_order: list[sy.Str]) -> sy.YAML:
+def reorder_openapi_yaml(openapi_yaml: sy.YAML, tables_in_order: List[sy.Str]) -> sy.YAML:
     """Inputs an openapi description of database schema and outputs the same but reordered
     so no tables references a table that is defined later in the yaml description.
 

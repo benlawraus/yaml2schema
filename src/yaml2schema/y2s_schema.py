@@ -1,6 +1,6 @@
 import strictyaml as sy
 
-from src.yaml2schema.y2s_constants import OPENAPI_TYPES, OPENAPI_FORMATS
+from y2s_constants import OPENAPI_TYPES, OPENAPI_FORMATS
 
 
 def openapi_schema() -> sy.Map:
