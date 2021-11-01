@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: Example openapi file
+  description: File can be used as an input to 'yaml2schema'.
+  termsOfService: https://unlicense.org
+  version: 0.0.1
+paths:
+  /:
+components:
+  schemas:
+    users:
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        enabled:
+          type: boolean
+        signed_up:
+          type: string
+          format: date-time
+        password_hash:
+          type: string
+        confirmed_email:
+          type: boolean
+        email_confirmation_key:
+          type: string
+        last_login:
+          type: string
+          format: date-time
+    email:
+      properties:
+        address:
+          type: string
+        created_by:
+          $ref: '#/components/schemas/users'
+        created_on:
+          type: string
+          format: date-time
+    phone:
+      properties:
+        number:
+          type: string
+        created_by:
+          $ref: '#/components/schemas/users'
+        created_on:
+          type: string
+          format: date-time
+    contact:
+      properties:
+        name:
+          type: string
+        phone:
+          $ref: '#/components/schemas/phone'
+        created_by:
+          $ref: '#/components/schemas/users'
+        email_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/email'
+        address_listint:
+          type: array
+          items:
+            type: integer
+        age:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        father:
+          $ref: '#/components/schemas/contact'
