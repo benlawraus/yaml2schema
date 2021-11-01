@@ -29,7 +29,7 @@ pydal locally so that tests can be run locally and not on external servers.
 
 
 BUT you do not need to use *pyDAL*, because you can also use it to generate class definitions of your tables (this repo uses `datamodel-code-generator` to do that)
-It also converts your `anvil.yaml` into `openapi.yaml` if y
+It also converts your `anvil.yaml` into `openapi.yaml` if want to use some other yaml converter.
 
 
 Once the git repo is downloaded, use an `openapi.yaml` (or an `anvil.yaml`) file containing the
