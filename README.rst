@@ -73,7 +73,6 @@ How to use it?
 
 Implemented
 -----------
-
 ============= ============== ======= ========= =========== =============== ======= =========
 INPUT                                                      OUTPUT
 ---------------------------------------------- ---------------------------------------------
@@ -85,7 +84,7 @@ datetime                     string  date-time datetime    datetime        strin
 date                         string  date      date        date            string  date
 bool                         boolean           bool        boolean
 link_single                  #ref              class       reference       #ref
-link_multiple                array   #ref      List[class] list: reference
+link_multiple                array   #ref      List[class] list: reference array   #ref
 simpleObject  column_listint array   integer   List[int]   list:integer    array   integer
 simpleObject  column_liststr array   string    List[str]   list:string     array   string
 ============= ============== ======= ========= =========== =============== ======= =========
