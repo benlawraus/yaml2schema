@@ -62,6 +62,9 @@ The file structure is as follows::
 
 How to use it?
 --------------
+
+
+
 #.  You need to supply a `yaml` file, either `anvil.yaml` (created with your repo on `anvil.yaml <https://anvil.works>`_)
     or `openapi.yaml` which has the `components` section of the `openapi` standard.
 #.  Some types are not implemented yet. What is implemented has some additional caveats.
@@ -70,6 +73,24 @@ How to use it?
            is implemented as integer.
 `list:integer` and `list:string`
            are implemented from `simpleObject` in `anvil`. To differentiate, the column name must end in `_listint` or `_liststr`.
+
+Example
+^^^^^^^^
+Here is an example run in the terminal::
+
+    mkdir work
+    cd work
+    python3 -m venv ./venv
+    source venv/bin/activate
+    pip3 install datamodel-code-generator
+    pip3 install strictyaml
+    git clone https://github.com/benlawraus/yaml2schema.git
+    cd yaml2schema/src/yaml2schema
+    # change input/anvil.yaml or input/openapi.yaml
+    python3 main.py
+
+
+
 
 Implemented
 -----------
