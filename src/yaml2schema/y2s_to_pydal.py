@@ -1,7 +1,7 @@
 
 import strictyaml as sy
 
-from src.yaml2schema.y2s_reorder import extract_type_of_field
+from y2s_reorder import extract_type_of_field
 
 
 def openapi_to_pydal(ordered_openapi_yaml: sy.YAML) -> list[str]:
