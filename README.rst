@@ -19,17 +19,21 @@ describing your database schema.
 Once you got that, you can copy and paste the `anvil` directory from `pyDALAnvilWorks <https://github.com/benlawraus/pyDALAnvilWorks>`_
 into your *anvil.works* app.
 
-Now you have a `sqlite` database for your app amd you can use *pytest* from your *pycharm* IDE.
+Now you have a `sqlite` database for your app and you can use *pytest* from your *pycharm* IDE.
 
 What is it for?
 ---------------
 `pydal <https://py4web.com/_documentation/static/en/chapter-07.html>`_ is a very good database abstraction layer (DAL)
 for python handling of just about any database including `sqlite`. The motivation for writing this project was to use 
-pydal locally so that tests can be run locally and not on external servers. 
+pydal locally so that tests can be run locally and not on external servers.
 
 
-Once the git repo is downloaded, use `anvil.yaml` (or an `openapi.yaml`) file containing the
-projects database description. This will read `anvil.yaml` and generate a python file with the database
+BUT you do not need to use *pyDAL*, because you can also use it to generate class definitions of your tables (this repo uses `datamodel-code-generator` to do that)
+It also converts your `anvil.yaml` into `openapi.yaml` if y
+
+
+Once the git repo is downloaded, use an `openapi.yaml` (or an `anvil.yaml`) file containing the
+projects database description. This will read the file and generate a python file with the database
 tables in openapi form, pydal form and pydantic model form.
 
 How to run it?
