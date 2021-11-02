@@ -82,7 +82,7 @@ Here is an example run in the terminal (good for python3.7)::
     For example
 
     `number`
-            is implemented as `integer` by default, but you can change over-ride to `float` in `anvil_refined.yaml`
+            is implemented as `integer` by default, but you can over-ride to `float` in `anvil_refined.yaml`
 
 Included in the `src/yaml2schema/input` directory, there is an example database schema. You can see
 what is generated in the `src/yaml2schema/output` directory.
