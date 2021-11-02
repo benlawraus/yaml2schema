@@ -12,11 +12,13 @@ from y2s_to_pydal import openapi_to_pydal
 from y2s_constants import OPENAPI_TYPES, OPENAPI_FORMATS, Openapi_preamble
 from y2s_file_io import build_path, readfile
 from y2s_schema import openapi_schema, openapi_preamble_schema, anvil_yaml_schema
+from y2s_modify import update_field_type
 import strictyaml as sy
 
 
 def main():
     input_yaml = "input/anvil.yaml"
+    input_refined = "input/anvil_refined.yaml"
     # if there is anvil.yaml, converts to openapi.yaml
     try:
         anvil_yaml, newline_list = readfile(input_yaml, "")
@@ -24,6 +26,14 @@ def main():
         parsed_yaml = sy.dirty_load(yaml_string=db_str, schema=anvil_yaml_schema(), allow_flow_style=True)
         # convert to OPENAPI strict YAML
         open_api_yaml = convert_anvil_to_openapi_yaml(parsed_yaml)
+        # is there more anvil info?
+        try:
+            anvil_yaml_refined, newline_list = readfile(input_refined, "")
+            db_str = anvil_yaml_refined[anvil_yaml_refined.find('components'):]
+            refined_yaml = sy.dirty_load(yaml_string=db_str, schema=openapi_schema(), allow_flow_style=False)
+            update_field_type(open_api_yaml,refined_yaml)
+        except FileNotFoundError:
+            pass
     # if no anvil.yaml, read in the openapi.yaml
     except FileNotFoundError:
         input_yaml = "input/openapi.yaml"

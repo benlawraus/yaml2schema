@@ -33,6 +33,9 @@ db_schema:
     - name: created_on
       admin_ui: {width: 200}
       type: datetime
+    - name: details
+      admin_ui: {width: 200}
+      type: simpleObject
   users:
     title: Users
     client: none
@@ -85,7 +88,10 @@ db_schema:
       admin_ui: {width: 200}
       type: link_multiple
       target: email
-    - name: address_listint
+    - name: address_list
+      admin_ui: {width: 200}
+      type: simpleObject
+    - name: address_list
       admin_ui: {width: 200}
       type: simpleObject
     - name: age

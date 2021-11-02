@@ -24,12 +24,14 @@ def define_tables_of_db():
             , Field('confirmed_email', type='boolean', default=None)
             , Field('email_confirmation_key', type='string', default=None)
             , Field('last_login', type='datetime', default=None)
+            , Field('remembered_logins', type='json', default=None)
         )
     if 'email' not in db.tables:
         db.define_table('email'
             , Field('address', type='string', default=None)
             , Field('created_by', type='reference users', default=None)
             , Field('created_on', type='datetime', default=None)
+            , Field('details', type='json', default=None)
         )
     if 'phone' not in db.tables:
         db.define_table('phone'
@@ -43,7 +45,7 @@ def define_tables_of_db():
             , Field('phone', type='reference phone', default=None)
             , Field('created_by', type='reference users', default=None)
             , Field('email_list', type='list:reference email', default=None)
-            , Field('address_listint', type='list:integer', default=None)
+            , Field('address_list', type='list:integer', default=None)
             , Field('age', type='integer', default=None)
             , Field('created_on', type='datetime', default=None)
             , Field('father', type='reference contact', default=None)

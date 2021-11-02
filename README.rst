@@ -50,7 +50,8 @@ File Structure
 The file structure is as follows::
 
             main.py # the entire software divided into functions
-    Input:  input/anvil.yaml
+    Input:  input/anvil.yaml  # file from downloaded anvil.works app
+            input/anvil_refined.yaml # OPTIONAL openapi format of fields requiring more information to specify
             OR
             input/openapi.yaml
     Output: output/anvil_openapi.yaml  # conversion to openapi standard yaml
@@ -76,37 +77,37 @@ Here is an example run in the terminal (good for python3.7)::
 
 #.  You need to supply a `yaml` file, either `anvil.yaml` (created with your repo on `anvil.yaml <https://anvil.works>`_)
     or `openapi.yaml` which has the `components` section of the `openapi` standard.
-#.  Some types are not implemented yet. What is implemented has some additional caveats.
+#.  Sometimes `anvil.yaml` is too vague for what you need. You can over-write parts of `anvil.yaml`
+    with a more detailed specification in `anvil_refined.yaml`. `anvil_refined.yaml` needs to be written in **openapi** yaml though.
+    For example
 
-`number`
-           is implemented as integer.
-`list:integer` and `list:string`
-           are implemented from `simpleObject` in `anvil`. To differentiate, the column name must end in `_listint` or `_liststr`. You don't need to do anything special if you start with an `openapi.yaml` file.
+    `number`
+            is implemented as `integer` by default, but you can change over-ride to `float` in `anvil_refined.yaml`
 
-
-
+Included in the `src/yaml2schema/input` directory, there is an example database schema. You can see
+what is generated in the `src/yaml2schema/output` directory.
 
 Implemented
 -----------
-============= ============== ======= ========= =========== =============== ======= =========
-INPUT                                                      OUTPUT
----------------------------------------------- ---------------------------------------------
-ANVIL                        OPENAPI           CLASSES     PYDAL           OPENAPI
-TYPE          NOTE           TYPE    FORMAT    TYPE        TYPE            TYPE    FORMAT
-============= ============== ======= ========= =========== =============== ======= =========
-string                       string            str         string          string
-datetime                     string  date-time datetime    datetime        string  date-time
-date                         string  date      date        date            string  date
-bool                         boolean           bool        boolean
-link_single                  #ref              class       reference       #ref
-link_multiple                array   #ref      List[class] list: reference array   #ref
-simpleObject  column_listint array   integer   List[int]   list:integer    array   integer
-simpleObject  column_liststr array   string    List[str]   list:string     array   string
-============= ============== ======= ========= =========== =============== ======= =========
+============= ================== ======= ========= ============= =============== ======= =========
+INPUT                                                            OUTPUT
+-------------------------------------------------- ---------------------------------------------
+============= ================== ======= ========= ============= =============== ======= =========
+ANVIL                            OPENAPI           CLASSES       PYDAL           OPENAPI
+TYPE          NOTE               TYPE    FORMAT    TYPE          TYPE            TYPE    FORMAT
+============= ================== ======= ========= ============= =============== ======= =========
+string                           string            str           string          string
+datetime                         string  date-time datetime      datetime        string  date-time
+date                             string  date      date          date            string  date
+bool                             boolean           bool          boolean
+link_single                      #ref              class         reference       #ref
+link_multiple                    array   #ref      List[class]   list: reference array   #ref
+simpleObject  anvil_reduced.yaml array   integer   List[int]     list:integer    array   integer
+simpleObject  anvil_reduced.yaml array   string    List[str]     list:string     array   string
+simpleObject                     object            Dict[str,Any] json            object
+============= ================== ======= ========= ============= =============== ======= =========
 
 
 TODO
 ------
-- separate the functions into options
-- anvil.works has `number` type that can be `int` or `float`. This program only uses `int`. Need to change this so that `float`, `double` etc can be used
-- anvil.works has `simpleobject` i.e. `json`. `list:integer` and `list:string` are implemented but needs more work to specify as pure `json`
+- separate into functions so you don't have to run the whole program everytime.

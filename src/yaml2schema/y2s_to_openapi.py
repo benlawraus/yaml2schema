@@ -56,18 +56,6 @@ def convert_anvil_to_openapi_yaml(anvil_yaml: sy.YAML) -> sy.YAML:
                     table_name = col['target'].text  # str(an_yaml[col['target']]['title'])
                     prop_ref = {'$ref': "#/components/schemas/" + table_name}
                     property_dict[key_col].update({'items': prop_ref})
-            elif type_col == 'simpleObject':
-                # is it a link of integer?
-                list_of = key_col.split('_')[-1]
-                if list_of[:4] == "list":
-                    if list_of == 'listint':
-                        item_property = {'type': 'integer'}
-                    elif list_of == 'liststr':
-                        item_property = {'type': 'string'}
-                    else:
-                        item_property = {'type': 'INVALID'}
-                    property_dict.update({key_col: {'type': 'array'}})
-                    property_dict[key_col].update({'items': item_property})
             else:
                 type_col = OPENAPI_TYPES[type_col]
 

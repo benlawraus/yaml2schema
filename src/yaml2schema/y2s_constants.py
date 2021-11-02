@@ -4,7 +4,7 @@ OPENAPI_TYPES = {'string': 'string',
                  'number': 'integer',
                  'bool': 'boolean',
                  'link_single': 'object',
-                 'simpleObject': 'array',  # 'object',
+                 'simpleObject': 'object',
                  'link_multiple': 'array',
                  }
 OPENAPI_FORMATS = {'date': 'date',

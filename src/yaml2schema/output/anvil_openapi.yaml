@@ -28,6 +28,8 @@ components:
         last_login:
           type: string
           format: date-time
+        remembered_logins:
+          type: object
     email:
       properties:
         address:
@@ -37,6 +39,8 @@ components:
         created_on:
           type: string
           format: date-time
+        details:
+          type: object
     phone:
       properties:
         number:
@@ -58,7 +62,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/email'
-        address_listint:
+        address_list:
           type: array
           items:
             type: integer

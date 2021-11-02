@@ -105,6 +105,8 @@ def extract_type_of_field(db_field: sy.YAML) -> Tuple[str, str]:
                 type_of = "INVALID"
         else:
             type_of = find_type_of_string(db_field['items'])
+    elif what_is_it.text == 'object':
+        type_of = "json"
     else:
         type_of = find_type_of_string(db_field)
     return type_of, reference
