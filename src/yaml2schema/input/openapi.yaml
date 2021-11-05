@@ -10,8 +10,6 @@ components:
   schemas:
     users:
       properties:
-        name:
-          type: string
         email:
           type: string
         enabled:
@@ -25,11 +23,6 @@ components:
           type: boolean
         email_confirmation_key:
           type: string
-        last_login:
-          type: string
-          format: date-time
-        remembered_logins:
-          type: object
     email:
       properties:
         address:
@@ -39,8 +32,6 @@ components:
         created_on:
           type: string
           format: date-time
-        details:
-          type: object
     phone:
       properties:
         number:
@@ -56,20 +47,23 @@ components:
           type: string
         phone:
           $ref: '#/components/schemas/phone'
-        created_by:
-          $ref: '#/components/schemas/users'
-        email_list:
+        email:
           type: array
           items:
             $ref: '#/components/schemas/email'
-        address_list:
-          type: array
-          items:
-            type: integer
         age:
-          type: integer
+          type: number
+          format: float
+        created_by:
+          $ref: '#/components/schemas/users'
         created_on:
           type: string
           format: date-time
+        family:
+          type: array
+          items:
+            type: integer
+        uid:
+          type: integer
         father:
           $ref: '#/components/schemas/contact'
