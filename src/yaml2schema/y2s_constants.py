@@ -2,13 +2,15 @@ OPENAPI_TYPES = {'string': 'string',
                  'datetime': 'string',
                  'date': 'string',
                  'number': 'integer',
+                 'number2': 'number',
                  'bool': 'boolean',
                  'link_single': 'object',
                  'simpleObject': 'object',
                  'link_multiple': 'array',
                  }
 OPENAPI_FORMATS = {'date': 'date',
-                   'datetime': 'date-time'}
+                   'datetime': 'date-time',
+                   'number2': 'float'}
 
 Openapi_preamble = """openapi: 3.0.3
 info:

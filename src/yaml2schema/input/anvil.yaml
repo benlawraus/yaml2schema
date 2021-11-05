@@ -1,49 +1,11 @@
-dependencies:
-- app_id: gobblegobble
-  version: {dev: false}
-services:
-- source: /runtime/services/tables.yml
-  client_config: {}
-  server_config: {auto_create_missing_columns: false}
-- source: /runtime/services/anvil/users.yml
-  client_config: {allow_signup: true, enable_automatically: true, use_email: true,
-    confirm_email: true, require_secure_passwords: true, allow_remember_me: true,
-    remember_me_days: 30, use_token: true}
-  server_config: {user_table: users}
-startup: {type: form, module: Gobble}
-package_name: Gobbly
 allow_embedding: false
-name: Wobbly
-runtime_options: {version: 2, client_version: '3', server_version: python3-full}
-metadata: {}
-startup_form: Blobbly
+package_name: pyDALAnvilWorksApp
 db_schema:
-  email:
-    title: Email
-    client: none
-    server: full
-    columns:
-    - name: address
-      admin_ui: {width: 200}
-      type: string
-    - name: created_by
-      admin_ui: {width: 200}
-      type: link_single
-      target: users
-    - name: created_on
-      admin_ui: {width: 200}
-      type: datetime
-    - name: details
-      admin_ui: {width: 200}
-      type: simpleObject
   users:
     title: Users
     client: none
     server: full
     columns:
-    - name: name
-      admin_ui: {width: 200}
-      type: string
     - name: email
       admin_ui: {width: 200}
       type: string
@@ -62,48 +24,21 @@ db_schema:
     - name: email_confirmation_key
       admin_ui: {width: 200}
       type: string
-    - name: last_login
-      admin_ui: {width: 200}
-      type: datetime
-    - name: remembered_logins
-      admin_ui: {width: 200}
-      type: simpleObject
-  contact:
-    title: Contact
+  email:
+    title: EMail
     client: none
     server: full
     columns:
-    - name: name
+    - name: address
       admin_ui: {width: 200}
       type: string
-    - name: phone
-      admin_ui: {width: 200}
-      type: link_single
-      target: phone
     - name: created_by
       admin_ui: {width: 200}
       type: link_single
       target: users
-    - name: email_list
-      admin_ui: {width: 200}
-      type: link_multiple
-      target: email
-    - name: address_list
-      admin_ui: {width: 200}
-      type: simpleObject
-    - name: address_list
-      admin_ui: {width: 200}
-      type: simpleObject
-    - name: age
-      admin_ui: {width: 200}
-      type: number
     - name: created_on
       admin_ui: {width: 200}
       type: datetime
-    - name: father
-      admin_ui: {width: 200}
-      type: link_single
-      target: contact
   phone:
     title: Phone
     client: none
@@ -119,4 +54,51 @@ db_schema:
     - name: created_on
       admin_ui: {width: 200}
       type: datetime
+  contact:
+    title: Contact
+    client: none
+    server: full
+    columns:
+    - name: name
+      admin_ui: {width: 200}
+      type: string
+    - name: phone
+      admin_ui: {width: 200}
+      type: link_single
+      target: phone
+    - name: email
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: email
+    - name: age
+      admin_ui: {width: 200}
+      type: number
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: created_on
+      admin_ui: {width: 200}
+      type: datetime
+    - name: family
+      admin_ui: {width: 200}
+      type: simpleObject
+    - name: uid
+      admin_ui: {width: 200}
+      type: number
+    - name: father
+      admin_ui: {width: 200}
+      type: link_single
+      target: contact
+name: pyDALAnvilWorksApp
+startup_form: Form1
 renamed: true
+runtime_options: {version: 2, client_version: '3', server_version: python3-full}
+services:
+- source: /runtime/services/tables.yml
+  client_config: {}
+  server_config: {auto_create_missing_columns: true}
+- source: /runtime/services/anvil/users.yml
+  client_config: {allow_signup: true, enable_automatically: true, use_email: true,
+    confirm_email: true, allow_remember_me: true, remember_me_days: 30}
+  server_config: {user_table: users}

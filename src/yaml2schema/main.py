@@ -12,7 +12,7 @@ from y2s_to_pydal import openapi_to_pydal
 from y2s_constants import OPENAPI_TYPES, OPENAPI_FORMATS, Openapi_preamble
 from y2s_file_io import build_path, readfile
 from y2s_schema import openapi_schema, openapi_preamble_schema, anvil_yaml_schema
-from y2s_modify import update_field_type
+from y2s_modify import update_field_type, snip_out
 import strictyaml as sy
 
 
@@ -22,7 +22,7 @@ def main():
     # if there is anvil.yaml, converts to openapi.yaml
     try:
         anvil_yaml, newline_list = readfile(input_yaml, "")
-        db_str = anvil_yaml[anvil_yaml.find('db_schema'):]
+        db_str = snip_out(anvil_yaml,'db_schema')
         parsed_yaml = sy.dirty_load(yaml_string=db_str, schema=anvil_yaml_schema(), allow_flow_style=True)
         # convert to OPENAPI strict YAML
         open_api_yaml = convert_anvil_to_openapi_yaml(parsed_yaml)
@@ -63,9 +63,9 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except Exception:
+    main()
+
+    if True:
         comment = """
 Input:  input/anvil.yaml
         OR
@@ -91,5 +91,4 @@ of simplObject, will produce openapi and pyDAL type of 'list:string'.
 
 TODO:
 simpleObject to json"""
-        print(comment + doc_type + comment_1)
-        raise Exception("Need standard input files.")
+        #print(comment + doc_type + comment_1)

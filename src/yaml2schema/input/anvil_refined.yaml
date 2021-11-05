@@ -11,9 +11,12 @@ components:
   schemas:
     contact:
       properties:
-        address_list:
+        family:
           type: array
           items:
             type: integer
+        age:
+          type: number
+          format: float
 
   

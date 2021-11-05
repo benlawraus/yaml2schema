@@ -51,13 +51,15 @@ def openapi_preamble_schema():
 
 def anvil_yaml_schema() -> sy.Map:
     """
-    Reads a block of string (`anvil.yaml`) and parses it
-    into a strictyaml object. All done by strictyaml package.
+    Generates a strictyaml schema
 
     Returns
     -------
-        An instance of the strictyaml class usually as an OrderedDict
+        Schema object
     """
+    # schema before database description
+    pre_schema = sy.MapPattern(sy.Str(), sy.Any())
+    post_schema = sy.MapPattern(sy.Str(), sy.Any())
     # schema used by strictyaml to parse the text
     schema = sy.Map({
         'db_schema': sy.MapPattern(
@@ -73,8 +75,9 @@ def anvil_yaml_schema() -> sy.Map:
                     sy.Optional('target'): sy.Str()
                 }))
             })
-        ),
-        'renamed': sy.Bool()
+        )
     })
+    # after this, there is:
+    #total = sy.Map({pre_schema, schema, post_schema})
     # anvil.yaml uses 'flow style' in certain places.
     return schema
