@@ -44,7 +44,7 @@ def define_tables_of_db():
             , Field('created_by', type='reference users', default=None)
             , Field('created_on', type='datetime', default=None)
             , Field('family', type='list:integer', default=None)
-            , Field('uid', type='integer', default=None)
+            , Field('uid', type='bigint', default=None)
             , Field('father', type='reference contact', default=None)
         )
     return

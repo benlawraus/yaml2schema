@@ -6,7 +6,7 @@ info:
 servers:
   - url: 'https'
 paths:
-
+  \:
 components:
   schemas:
     contact:
@@ -18,5 +18,8 @@ components:
         age:
           type: number
           format: float
+        uid:
+          type: integer
+          format: int64
 
   

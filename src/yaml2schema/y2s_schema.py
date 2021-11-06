@@ -57,9 +57,6 @@ def anvil_yaml_schema() -> sy.Map:
     -------
         Schema object
     """
-    # schema before database description
-    pre_schema = sy.MapPattern(sy.Str(), sy.Any())
-    post_schema = sy.MapPattern(sy.Str(), sy.Any())
     # schema used by strictyaml to parse the text
     schema = sy.Map({
         'db_schema': sy.MapPattern(
@@ -77,7 +74,5 @@ def anvil_yaml_schema() -> sy.Map:
             })
         )
     })
-    # after this, there is:
-    #total = sy.Map({pre_schema, schema, post_schema})
     # anvil.yaml uses 'flow style' in certain places.
     return schema

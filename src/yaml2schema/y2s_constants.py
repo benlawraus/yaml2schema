@@ -10,7 +10,10 @@ OPENAPI_TYPES = {'string': 'string',
                  }
 OPENAPI_FORMATS = {'date': 'date',
                    'datetime': 'date-time',
-                   'number2': 'float'}
+                   'integer1': 'int32',
+                   'bigint': 'int64',
+                   'number2': 'float'
+                   }
 
 Openapi_preamble = """openapi: 3.0.3
 info:
