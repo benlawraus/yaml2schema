@@ -40,6 +40,7 @@ def define_tables_of_db():
     global abs_path
     if db is None:
         db = DAL('sqlite://storage.sqlite', folder=abs_path+'/database')
+    # in following definitions, delete 'ondelete=..' parameter and CASCADE will be ON.
 """
     ]
 
@@ -57,7 +58,8 @@ def define_tables_of_db():
             type_of, reference = extract_type_of_field(db_field)
             # _#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#
             # line of the Column aka Field definition
-            table_def_lines.append(tab1 * 3 + f", Field('{field_name}', type='{type_of}', default=None)")
+            table_def_lines.append(
+                tab1 * 3 + f", Field('{field_name}', type='{type_of}', default=None, ondelete='NO ACTION')")
         # last parenthesis of table definition
         table_def_lines.append(tab1 * 2 + ')')
         file_lines.extend(table_def_lines)
