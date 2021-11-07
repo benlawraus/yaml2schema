@@ -97,6 +97,7 @@ ANVIL                            OPENAPI           CLASSES       PYDAL          
 TYPE          NOTE               TYPE    FORMAT    TYPE          TYPE            TYPE    FORMAT
 ============= ================== ======= ========= ============= =============== ======= =========
 string                           string            str           string          string
+number                           integer           int           integer         integer int32
 number        anvil_reduced.yaml integer int32     int           integer         integer int32
 number        anvil_reduced.yaml integer int64     int           bigint          integer int64
 number        anvil_reduced.yaml number  float     float         double          number  float
