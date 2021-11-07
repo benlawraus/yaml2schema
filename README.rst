@@ -49,7 +49,7 @@ File Structure
 ^^^^^^^^^^^^^^
 The file structure is as follows::
 
-            main.py # the entire software divided into functions
+    main.py # the entire software divided into function files
     Input:  input/anvil.yaml  # file from downloaded anvil.works app
             input/anvil_refined.yaml # OPTIONAL openapi format of fields requiring more information to specify
             OR
