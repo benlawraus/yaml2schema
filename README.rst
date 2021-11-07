@@ -61,7 +61,7 @@ The file structure is as follows::
 
 How to use it?
 --------------
-Here is an example run in the terminal (good for python3.7)::
+Here is an example run in the terminal (good for python3.7+)::
 
     mkdir work
     cd work
