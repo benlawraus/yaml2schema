@@ -58,8 +58,12 @@ def define_tables_of_db():
             type_of, reference = extract_type_of_field(db_field)
             # _#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#
             # line of the Column aka Field definition
+            if "reference" in type_of:
+                ondelete = ", ondelete='NO ACTION'"
+            else:
+                ondelete = ""
             table_def_lines.append(
-                tab1 * 3 + f", Field('{field_name}', type='{type_of}', default=None, ondelete='NO ACTION')")
+                tab1 * 3 + f", Field('{field_name}', type='{type_of}', default=None{ondelete})")
         # last parenthesis of table definition
         table_def_lines.append(tab1 * 2 + ')')
         file_lines.extend(table_def_lines)
