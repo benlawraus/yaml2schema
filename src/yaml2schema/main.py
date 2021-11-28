@@ -19,23 +19,23 @@ import strictyaml as sy
 def main():
     input_yaml = "input/anvil.yaml"
     input_refined = "input/anvil_refined.yaml"
-    # if there is anvil.yaml, converts to openapi.yaml
     try:
+        # if there is anvil.yaml, converts to openapi.yaml
         anvil_yaml, newline_list = readfile(input_yaml, "")
         db_str = snip_out(anvil_yaml,'db_schema')
         parsed_yaml = sy.dirty_load(yaml_string=db_str, schema=anvil_yaml_schema(), allow_flow_style=True)
         # convert to OPENAPI strict YAML
         open_api_yaml = convert_anvil_to_openapi_yaml(parsed_yaml)
-        # is there more anvil info?
         try:
+            # is there more to add in anvil_refined.yaml?
             anvil_yaml_refined, newline_list = readfile(input_refined, "")
             db_str = anvil_yaml_refined[anvil_yaml_refined.find('components'):]
             refined_yaml = sy.dirty_load(yaml_string=db_str, schema=openapi_schema(), allow_flow_style=False)
             update_field_type(open_api_yaml,refined_yaml)
         except FileNotFoundError:
             pass
-    # if no anvil.yaml, read in the openapi.yaml
     except FileNotFoundError:
+        # if no anvil.yaml, read in the openapi.yaml
         input_yaml = "input/openapi.yaml"
         open_yaml, newline_list = readfile(input_yaml, "")
         db_str = open_yaml[open_yaml.find('components'):]
@@ -63,9 +63,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
-
-    if True:
+    try:
+        main()
+    except Exception:
         comment = """
 Input:  input/anvil.yaml
         OR
@@ -81,14 +81,4 @@ Can convert the following:\n"""
                 doc_type += f"{key} : {OPENAPI_TYPES[key]}\n"
         for key in OPENAPI_FORMATS:
             doc_type += f"{key} : {OPENAPI_FORMATS[key]}\n"
-        comment_1 = """
-pyDAL and openapi have list:integer and list:string as a column type in databases.
-anvil.works uses 'simpleObject' for these types as well as json. In order for 'list:integer'
-and 'list:string' to be implemented, you need to name the column `mycolumn_listint`. This
-'_listint' part of the name will indicate to this program that it should use a type
-of 'list:integer'. Similarly, '_liststr' at the end of the column name with a type
-of simplObject, will produce openapi and pyDAL type of 'list:string'. 
-
-TODO:
-simpleObject to json"""
-        #print(comment + doc_type + comment_1)
+        print(comment + doc_type)
