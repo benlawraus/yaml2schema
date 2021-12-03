@@ -109,6 +109,9 @@ def extract_type_of_field(db_field: sy.YAML) -> Tuple[str, str]:
         type_of = "json"
     elif what_is_it.text == 'number':
         type_of = 'double'
+        if db_field.get('format',None) is not None:
+            if db_field['format'].text != 'float':
+                raise TypeError("'number' type with incorrect format field. Fix the openapi yaml and rerun. Thanks!")
     else:
         type_of = find_type_of_string(db_field)
     return type_of, reference

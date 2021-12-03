@@ -23,12 +23,16 @@ def define_tables_of_db():
             , Field('password_hash', type='string', default=None)
             , Field('confirmed_email', type='boolean', default=None)
             , Field('email_confirmation_key', type='string', default=None)
+            , Field('n_password_failures', type='integer', default=None)
+            , Field('last_login', type='datetime', default=None)
+            , Field('remembered_logins', type='json', default=None)
         )
     if 'email' not in db.tables:
         db.define_table('email'
             , Field('address', type='string', default=None)
             , Field('created_by', type='reference users', default=None, ondelete='NO ACTION')
             , Field('created_on', type='datetime', default=None)
+            , Field('place', type='integer', default=None)
         )
     if 'phone' not in db.tables:
         db.define_table('phone'
@@ -40,7 +44,7 @@ def define_tables_of_db():
         db.define_table('contact'
             , Field('name', type='string', default=None)
             , Field('phone', type='reference phone', default=None, ondelete='NO ACTION')
-            , Field('email', type='list:reference email', default=None, ondelete='NO ACTION')
+            , Field('email_list', type='list:reference email', default=None, ondelete='NO ACTION')
             , Field('age', type='double', default=None)
             , Field('created_by', type='reference users', default=None, ondelete='NO ACTION')
             , Field('created_on', type='datetime', default=None)

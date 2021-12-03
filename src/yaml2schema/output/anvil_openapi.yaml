@@ -23,6 +23,13 @@ components:
           type: boolean
         email_confirmation_key:
           type: string
+        n_password_failures:
+          type: integer
+        last_login:
+          type: string
+          format: date-time
+        remembered_logins:
+          type: object
     email:
       properties:
         address:
@@ -32,6 +39,9 @@ components:
         created_on:
           type: string
           format: date-time
+        place:
+          type: integer
+          format: int32
     phone:
       properties:
         number:
@@ -47,7 +57,7 @@ components:
           type: string
         phone:
           $ref: '#/components/schemas/phone'
-        email:
+        email_list:
           type: array
           items:
             $ref: '#/components/schemas/email'

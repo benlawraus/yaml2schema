@@ -21,5 +21,10 @@ components:
         uid:
           type: integer
           format: int64
+    email:
+      properties:
+        place:
+          type: integer
+          format: int32
 
   

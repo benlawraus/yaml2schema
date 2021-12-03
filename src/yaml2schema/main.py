@@ -63,9 +63,7 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except Exception:
+    if True:
         comment = """
 Input:  input/anvil.yaml
         OR
@@ -82,3 +80,6 @@ Can convert the following:\n"""
         for key in OPENAPI_FORMATS:
             doc_type += f"{key} : {OPENAPI_FORMATS[key]}\n"
         print(comment + doc_type)
+
+    main()
+
