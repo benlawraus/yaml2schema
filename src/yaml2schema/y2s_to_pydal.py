@@ -67,5 +67,8 @@ def define_tables_of_db():
         # last parenthesis of table definition
         table_def_lines.append(tab1 * 2 + ')')
         file_lines.extend(table_def_lines)
-    file_lines.append(tab1 + "return")
+    file_lines.append(tab1 + "return\n")
+    file_lines.append("""if __name__ == '__main__':
+    define_tables_of_db()
+""")
     return file_lines
