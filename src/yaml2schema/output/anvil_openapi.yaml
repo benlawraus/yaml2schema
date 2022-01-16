@@ -8,6 +8,35 @@ paths:
   /:
 components:
   schemas:
+    owner:
+      properties:
+        name:
+          type: string
+        settings:
+          type: object
+        permission:
+          type: integer
+    email:
+      properties:
+        address:
+          type: string
+        place:
+          type: integer
+          format: int32
+        other_place:
+          type: string
+        owner_ref:
+          $ref: '#/components/schemas/owner'
+    location:
+      properties:
+        address:
+          type: string
+        place:
+          type: integer
+        owner_ref:
+          $ref: '#/components/schemas/owner'
+        other_place:
+          type: string
     users:
       properties:
         email:
@@ -23,58 +52,218 @@ components:
           type: boolean
         email_confirmation_key:
           type: string
-        n_password_failures:
-          type: integer
         last_login:
           type: string
           format: date-time
         remembered_logins:
           type: object
-    email:
+        name:
+          type: string
+        owner_ref:
+          $ref: '#/components/schemas/owner'
+        uuid:
+          type: integer
+        owner_relation:
+          type: integer
+    group:
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        created_by:
+          $ref: '#/components/schemas/users'
+    note:
+      properties:
+        text:
+          type: string
+        created_on:
+          type: string
+          format: date-time
+        created_by:
+          $ref: '#/components/schemas/users'
+        modified_on:
+          type: string
+          format: date
+        modified_by:
+          $ref: '#/components/schemas/users'
+    phone:
       properties:
         address:
           type: string
-        created_by:
-          $ref: '#/components/schemas/users'
-        created_on:
-          type: string
-          format: date-time
+        text_able:
+          type: boolean
         place:
           type: integer
-          format: int32
-    phone:
+        other_place:
+          type: string
+        owner_ref:
+          $ref: '#/components/schemas/owner'
+    company:
       properties:
-        number:
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        phone_ref:
+          $ref: '#/components/schemas/phone'
+        url:
           type: string
         created_by:
           $ref: '#/components/schemas/users'
-        created_on:
-          type: string
-          format: date-time
     contact:
       properties:
         name:
           type: string
-        phone:
-          $ref: '#/components/schemas/phone'
+        created_by:
+          $ref: '#/components/schemas/users'
+        owner_ref:
+          $ref: '#/components/schemas/owner'
         email_list:
           type: array
           items:
             $ref: '#/components/schemas/email'
-        age:
-          type: number
-          format: float
-        created_by:
-          $ref: '#/components/schemas/users'
-        created_on:
+        how_related:
+          type: integer
+        location_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/location'
+        how_related_label:
+          type: string
+        phone_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/phone'
+        modified_on:
+          type: string
+          format: date-time
+        last_used:
           type: string
           format: date-time
         family:
           type: array
           items:
             type: integer
+        age:
+          type: number
+          format: float
         uid:
           type: integer
           format: int64
-        father:
+    group_member:
+      properties:
+        group_ref:
+          $ref: '#/components/schemas/group'
+        created_by:
+          $ref: '#/components/schemas/users'
+        contact_ref:
           $ref: '#/components/schemas/contact'
+        user_ref:
+          $ref: '#/components/schemas/users'
+        parent:
+          type: boolean
+        child:
+          type: boolean
+        grandparent:
+          type: boolean
+        grandchild:
+          type: boolean
+        other:
+          type: boolean
+    shared_contact:
+      properties:
+        created_by:
+          $ref: '#/components/schemas/users'
+        shared_with:
+          $ref: '#/components/schemas/users'
+        contact_ref:
+          $ref: '#/components/schemas/contact'
+        permission:
+          type: integer
+        owner_ref:
+          $ref: '#/components/schemas/owner'
+        last_used:
+          type: string
+          format: date-time
+    project:
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        family_ref:
+          $ref: '#/components/schemas/group'
+        created_by:
+          $ref: '#/components/schemas/users'
+        users_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/users'
+        contacts_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/contact'
+        companies_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/company'
+    connection:
+      properties:
+        contact_ref:
+          $ref: '#/components/schemas/contact'
+        created_by:
+          $ref: '#/components/schemas/users'
+        relation:
+          type: string
+        created_on:
+          type: string
+          format: date-time
+        note:
+          type: string
+    meeting:
+      properties:
+        summary:
+          type: string
+        note:
+          type: string
+        when:
+          type: string
+          format: date-time
+        project_ref:
+          $ref: '#/components/schemas/project'
+        created_by:
+          $ref: '#/components/schemas/users'
+        location:
+          type: string
+    participant:
+      properties:
+        contact_ref:
+          $ref: '#/components/schemas/contact'
+        meeting_ref:
+          $ref: '#/components/schemas/meeting'
+        note_ref:
+          $ref: '#/components/schemas/note'
+        communicated:
+          type: integer
+        created_by:
+          $ref: '#/components/schemas/users'
+        other_label:
+          type: string
+    shared_meeting:
+      properties:
+        meeting_ref:
+          $ref: '#/components/schemas/meeting'
+        shared_with:
+          $ref: '#/components/schemas/users'
+        created_by:
+          $ref: '#/components/schemas/users'
+        owner_ref:
+          $ref: '#/components/schemas/owner'
+        permission:
+          type: integer
+        last_used:
+          type: string
+          format: date-time

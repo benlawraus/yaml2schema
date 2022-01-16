@@ -1,42 +1,278 @@
+dependencies:
+- app_id: C6ZZPAPN4YYF5NVJ
+  version: {dev: false}
 services:
 - source: /runtime/services/tables.yml
   client_config: {}
-  server_config: {auto_create_missing_columns: true}
+  server_config: {auto_create_missing_columns: false}
 - source: /runtime/services/anvil/users.yml
   client_config: {allow_signup: true, enable_automatically: true, use_email: true,
-    confirm_email: true, allow_remember_me: true, remember_me_days: 30}
-  server_config:
-    user_table: users
-    email_content:
-      confirm_address: {html: '<p>Thanks for registering your account with us. Please
-          click the following link to confirm that this is your account:
-
-
-          </p><p>{{confirm_link}}
-
-
-          </p><p>Thanks,
-
-          </p><p>The team</p>'}
-      reset_password: {html: '<p>Hi there,
-
-
-          </p><p>You have requested a password reset for your account {{email}}. To
-          reset your password, click the link below:
-
-
-          </p><p>{{reset_link}}
-
-
-          </p><p>This link will expire in ten minutes.</p>'}
-startup: {type: form, module: HomeForm}
-package_name: pyDALAnvilWorksApp
+    confirm_email: true, require_secure_passwords: true, allow_remember_me: true,
+    remember_me_days: 30, use_token: true}
+  server_config: {user_table: users}
+startup: {type: form, module: Landing}
+package_name: FRM
 allow_embedding: false
-name: pyDALAnvilWorksApp
+name: FRM
 runtime_options: {version: 2, client_version: '3', server_version: python3-full}
 metadata: {}
-startup_form: null
+startup_form: ContactsForm
 db_schema:
+  owner:
+    title: Owner
+    client: none
+    server: full
+    columns:
+    - name: name
+      admin_ui: {width: 200}
+      type: string
+    - name: settings
+      admin_ui: {width: 200}
+      type: simpleObject
+    - name: permission
+      admin_ui: {width: 200}
+      type: number
+  group_member:
+    title: Group_member
+    client: none
+    server: full
+    columns:
+    - name: group_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: group
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: contact_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: contact
+    - name: user_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: parent
+      admin_ui: {width: 200}
+      type: bool
+    - name: child
+      admin_ui: {width: 200}
+      type: bool
+    - name: grandparent
+      admin_ui: {width: 200}
+      type: bool
+    - name: grandchild
+      admin_ui: {width: 200}
+      type: bool
+    - name: other
+      admin_ui: {width: 200}
+      type: bool
+  company:
+    title: Company
+    client: none
+    server: full
+    columns:
+    - name: name
+      admin_ui: {width: 200}
+      type: string
+    - name: address
+      admin_ui: {width: 200}
+      type: string
+    - name: phone
+      admin_ui: {width: 200}
+      type: string
+    - name: phone_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: phone
+    - name: url
+      admin_ui: {width: 200}
+      type: string
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+  shared_contact:
+    title: Shared_contact
+    client: none
+    server: full
+    columns:
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: shared_with
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: contact_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: contact
+    - name: permission
+      admin_ui: {width: 200}
+      type: number
+    - name: owner_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: owner
+    - name: last_used
+      admin_ui: {width: 200}
+      type: datetime
+  group:
+    title: Group
+    client: none
+    server: full
+    columns:
+    - name: name
+      admin_ui: {width: 200}
+      type: string
+    - name: description
+      admin_ui: {width: 200}
+      type: string
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+  project:
+    title: Project
+    client: none
+    server: full
+    columns:
+    - name: name
+      admin_ui: {width: 200}
+      type: string
+    - name: description
+      admin_ui: {width: 200}
+      type: string
+    - name: family_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: group
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: users_ref
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: users
+    - name: contacts_ref
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: contact
+    - name: companies_ref
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: company
+  email:
+    title: Email
+    client: none
+    server: full
+    columns:
+    - name: address
+      admin_ui: {width: 200}
+      type: string
+    - name: place
+      admin_ui: {width: 200}
+      type: number
+    - name: other_place
+      admin_ui: {width: 200}
+      type: string
+    - name: owner_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: owner
+  note:
+    title: Note
+    client: none
+    server: full
+    columns:
+    - name: text
+      admin_ui: {width: 200}
+      type: string
+    - name: created_on
+      admin_ui: {width: 200}
+      type: datetime
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: modified_on
+      admin_ui: {width: 200}
+      type: date
+    - name: modified_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+  connection:
+    title: Connection
+    client: none
+    server: full
+    columns:
+    - name: contact_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: contact
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: relation
+      admin_ui: {width: 200}
+      type: string
+    - name: created_on
+      admin_ui: {width: 200}
+      type: datetime
+    - name: note
+      admin_ui: {width: 200}
+      type: string
+  location:
+    title: Location
+    client: none
+    server: full
+    columns:
+    - name: address
+      admin_ui: {width: 200}
+      type: string
+    - name: place
+      admin_ui: {width: 200}
+      type: number
+    - name: owner_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: owner
+    - name: other_place
+      admin_ui: {width: 200}
+      type: string
+  participant:
+    title: Participant
+    client: none
+    server: full
+    columns:
+    - name: contact_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: contact
+    - name: meeting_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: meeting
+    - name: note_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: note
+    - name: communicated
+      admin_ui: {width: 200}
+      type: number
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: other_label
+      admin_ui: {width: 200}
+      type: string
   users:
     title: Users
     client: none
@@ -60,54 +296,73 @@ db_schema:
     - name: email_confirmation_key
       admin_ui: {width: 200}
       type: string
-    - name: n_password_failures
+    - name: last_login
+      admin_ui: {width: 200}
+      type: datetime
+    - name: remembered_logins
+      admin_ui: {width: 200}
+      type: simpleObject
+    - name: name
+      admin_ui: {width: 200}
+      type: string
+    - name: owner_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: owner
+    - name: uuid
       admin_ui: {width: 200}
       type: number
-    - name: last_login
+    - name: owner_relation
+      admin_ui: {width: 200}
+      type: number
+  shared_meeting:
+    title: Shared_meeting
+    client: none
+    server: full
+    columns:
+    - name: meeting_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: meeting
+    - name: shared_with
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: owner_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: owner
+    - name: permission
+      admin_ui: {width: 200}
+      type: number
+    - name: last_used
       admin_ui: {width: 200}
       type: datetime
-    - name: last_login
-      admin_ui: {width: 200}
-      type: datetime
-    - name: remembered_logins
-      admin_ui: {width: 200}
-      type: simpleObject
-    - name: remembered_logins
-      admin_ui: {width: 200}
-      type: simpleObject
-  email:
-    title: EMail
+  phone:
+    title: Phone
     client: none
     server: full
     columns:
     - name: address
       admin_ui: {width: 200}
       type: string
-    - name: created_by
+    - name: text_able
       admin_ui: {width: 200}
-      type: link_single
-      target: users
-    - name: created_on
-      admin_ui: {width: 200}
-      type: datetime
+      type: bool
     - name: place
       admin_ui: {width: 200}
       type: number
-  phone:
-    title: Phone
-    client: none
-    server: full
-    columns:
-    - name: number
+    - name: other_place
       admin_ui: {width: 200}
       type: string
-    - name: created_by
+    - name: owner_ref
       admin_ui: {width: 200}
       type: link_single
-      target: users
-    - name: created_on
-      admin_ui: {width: 200}
-      type: datetime
+      target: owner
   contact:
     title: Contact
     client: none
@@ -116,32 +371,61 @@ db_schema:
     - name: name
       admin_ui: {width: 200}
       type: string
-    - name: phone
-      admin_ui: {width: 200}
-      type: link_single
-      target: phone
-    - name: email_list
-      admin_ui: {width: 200}
-      type: link_multiple
-      target: email
-    - name: age
-      admin_ui: {width: 200}
-      type: number
     - name: created_by
       admin_ui: {width: 200}
       type: link_single
       target: users
-    - name: created_on
-      admin_ui: {width: 200}
-      type: datetime
-    - name: family
-      admin_ui: {width: 200}
-      type: simpleObject
-    - name: uid
-      admin_ui: {width: 200}
-      type: number
-    - name: father
+    - name: owner_ref
       admin_ui: {width: 200}
       type: link_single
-      target: contact
+      target: owner
+    - name: email_list
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: email
+    - name: how_related
+      admin_ui: {width: 200}
+      type: number
+    - name: location_list
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: location
+    - name: how_related_label
+      admin_ui: {width: 200}
+      type: string
+    - name: phone_list
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: phone
+    - name: modified_on
+      admin_ui: {width: 200}
+      type: datetime
+    - name: last_used
+      admin_ui: {width: 200}
+      type: datetime
+  meeting:
+    title: Meeting
+    client: none
+    server: full
+    columns:
+    - name: summary
+      admin_ui: {width: 200}
+      type: string
+    - name: note
+      admin_ui: {width: 200}
+      type: string
+    - name: when
+      admin_ui: {width: 200}
+      type: datetime
+    - name: project_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: project
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: location
+      admin_ui: {width: 200}
+      type: string
 renamed: true
