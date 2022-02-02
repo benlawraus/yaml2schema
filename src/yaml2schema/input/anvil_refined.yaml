@@ -26,5 +26,4 @@ components:
         place:
           type: integer
           format: int32
-
-  
+ 
