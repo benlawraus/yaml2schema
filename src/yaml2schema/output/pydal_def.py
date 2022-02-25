@@ -63,6 +63,7 @@ def define_tables_of_db():
             , Field('created_by', type='reference users', default=None, ondelete='NO ACTION')
             , Field('modified_on', type='date', default=None)
             , Field('modified_by', type='reference users', default=None, ondelete='NO ACTION')
+            , Field('owner_ref', type='reference owner', default=None, ondelete='NO ACTION')
         )
     if 'phone' not in db.tables:
         db.define_table('phone'
@@ -96,6 +97,12 @@ def define_tables_of_db():
             , Field('family', type='list:integer', default=None)
             , Field('age', type='double', default=None)
             , Field('uid', type='bigint', default=None)
+        )
+    if 'contactnote' not in db.tables:
+        db.define_table('contactnote'
+            , Field('contact_ref', type='reference contact', default=None, ondelete='NO ACTION')
+            , Field('note_ref', type='reference note', default=None, ondelete='NO ACTION')
+            , Field('permission', type='integer', default=None)
         )
     if 'group_member' not in db.tables:
         db.define_table('group_member'
@@ -141,18 +148,20 @@ def define_tables_of_db():
             , Field('summary', type='string', default=None)
             , Field('note', type='string', default=None)
             , Field('when', type='datetime', default=None)
-            , Field('project_ref', type='reference project', default=None, ondelete='NO ACTION')
-            , Field('created_by', type='reference users', default=None, ondelete='NO ACTION')
             , Field('location', type='string', default=None)
+            , Field('created_by', type='reference users', default=None, ondelete='NO ACTION')
+            , Field('owner_ref', type='reference owner', default=None, ondelete='NO ACTION')
+            , Field('modified_on', type='datetime', default=None)
+            , Field('last_used', type='datetime', default=None)
         )
     if 'participant' not in db.tables:
         db.define_table('participant'
             , Field('contact_ref', type='reference contact', default=None, ondelete='NO ACTION')
             , Field('meeting_ref', type='reference meeting', default=None, ondelete='NO ACTION')
-            , Field('note_ref', type='reference note', default=None, ondelete='NO ACTION')
             , Field('communicated', type='integer', default=None)
             , Field('created_by', type='reference users', default=None, ondelete='NO ACTION')
             , Field('other_label', type='string', default=None)
+            , Field('owner_ref', type='reference owner', default=None, ondelete='NO ACTION')
         )
     if 'shared_meeting' not in db.tables:
         db.define_table('shared_meeting'

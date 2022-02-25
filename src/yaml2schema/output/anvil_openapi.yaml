@@ -87,6 +87,8 @@ components:
           format: date
         modified_by:
           $ref: '#/components/schemas/users'
+        owner_ref:
+          $ref: '#/components/schemas/owner'
     phone:
       properties:
         address:
@@ -153,6 +155,14 @@ components:
         uid:
           type: integer
           format: int64
+    contactnote:
+      properties:
+        contact_ref:
+          $ref: '#/components/schemas/contact'
+        note_ref:
+          $ref: '#/components/schemas/note'
+        permission:
+          type: integer
     group_member:
       properties:
         group_ref:
@@ -232,26 +242,32 @@ components:
         when:
           type: string
           format: date-time
-        project_ref:
-          $ref: '#/components/schemas/project'
-        created_by:
-          $ref: '#/components/schemas/users'
         location:
           type: string
+        created_by:
+          $ref: '#/components/schemas/users'
+        owner_ref:
+          $ref: '#/components/schemas/owner'
+        modified_on:
+          type: string
+          format: date-time
+        last_used:
+          type: string
+          format: date-time
     participant:
       properties:
         contact_ref:
           $ref: '#/components/schemas/contact'
         meeting_ref:
           $ref: '#/components/schemas/meeting'
-        note_ref:
-          $ref: '#/components/schemas/note'
         communicated:
           type: integer
         created_by:
           $ref: '#/components/schemas/users'
         other_label:
           type: string
+        owner_ref:
+          $ref: '#/components/schemas/owner'
     shared_meeting:
       properties:
         meeting_ref:

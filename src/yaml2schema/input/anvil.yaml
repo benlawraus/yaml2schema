@@ -32,6 +32,22 @@ db_schema:
     - name: permission
       admin_ui: {width: 200}
       type: number
+  contactnote:
+    title: ContactNote
+    client: none
+    server: full
+    columns:
+    - name: contact_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: contact
+    - name: note_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: note
+    - name: permission
+      admin_ui: {width: 200}
+      type: number
   group_member:
     title: Group_member
     client: none
@@ -206,6 +222,10 @@ db_schema:
       admin_ui: {width: 200}
       type: link_single
       target: users
+    - name: owner_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: owner
   connection:
     title: Connection
     client: none
@@ -259,10 +279,6 @@ db_schema:
       admin_ui: {width: 200}
       type: link_single
       target: meeting
-    - name: note_ref
-      admin_ui: {width: 200}
-      type: link_single
-      target: note
     - name: communicated
       admin_ui: {width: 200}
       type: number
@@ -273,6 +289,10 @@ db_schema:
     - name: other_label
       admin_ui: {width: 200}
       type: string
+    - name: owner_ref
+      admin_ui: {width: 200}
+      type: link_single
+      target: owner
   users:
     title: Users
     client: none
@@ -417,15 +437,21 @@ db_schema:
     - name: when
       admin_ui: {width: 200}
       type: datetime
-    - name: project_ref
+    - name: location
       admin_ui: {width: 200}
-      type: link_single
-      target: project
+      type: string
     - name: created_by
       admin_ui: {width: 200}
       type: link_single
       target: users
-    - name: location
+    - name: owner_ref
       admin_ui: {width: 200}
-      type: string
+      type: link_single
+      target: owner
+    - name: modified_on
+      admin_ui: {width: 200}
+      type: datetime
+    - name: last_used
+      admin_ui: {width: 200}
+      type: datetime
 renamed: true
