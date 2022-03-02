@@ -110,8 +110,3 @@ simpleObject  anvil_reduced.yaml array   integer   List[int]     list:integer   
 simpleObject  anvil_reduced.yaml array   string    List[str]     list:string     array   string
 simpleObject                     object            Dict[str,Any] json            object
 ============= ================== ======= ========= ============= =============== ======= =========
-
-
-TODO
-------
-- separate into functions so you don't have to run the whole program everytime.

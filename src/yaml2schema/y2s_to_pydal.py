@@ -25,21 +25,21 @@ def openapi_to_pydal(ordered_openapi_yaml: sy.YAML) -> List[str]:
     # _#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#
     # a list of strings for each line in the file
     file_lines = [
-        """import os
-import inspect
+        """
+import pathlib
 
 from pydal import DAL, Field
 
 db = None
 logged_in_user = None
-abs_path = os.path.dirname(inspect.getfile(lambda: 0))
+abs_path = pathlib.Path(__file__).parent / 'database'
 
 
 def define_tables_of_db():
     global db
     global abs_path
     if db is None:
-        db = DAL('sqlite://storage.sqlite', folder=abs_path+'/database')
+        db = DAL('sqlite://storage.sqlite', folder=abs_path)
     # in following definitions, delete 'ondelete=..' parameter and CASCADE will be ON.
 """
     ]
