@@ -13,7 +13,7 @@ OPENAPI_FORMATS = {'date': 'date',
                    'integer': 'int32',
                    'bigint': 'int64',
                    'number2': 'float',
-                   'text':'text',  # for pydal's large strings
+                   'text':'',  # for pydal's large strings
                    }
 
 Openapi_preamble = """openapi: 3.0.3
