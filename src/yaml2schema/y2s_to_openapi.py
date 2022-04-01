@@ -66,5 +66,8 @@ def convert_anvil_to_openapi_yaml(anvil_yaml: sy.YAML) -> sy.YAML:
             # add None types to the columns
             # property_dict[key_col].update({'nullable': 'true'})
         # add info
-
+        if len(openapi_dict.keys()) == 0:
+            # there are no database tables!!!
+            print("No database tables in anvil.yaml!! Exiting.")
+            exit(0)
     return sy.as_document({'components': openapi_dict}, openapi_schema(), 'Openapi')
