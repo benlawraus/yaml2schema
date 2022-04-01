@@ -27,6 +27,9 @@ def main():
         # if there is anvil.yaml, converts to openapi.yaml
         anvil_yaml, newline_list = readfile(input_yaml, "")
         db_str = snip_out(anvil_yaml, 'db_schema')
+        if '{}' in db_str and len(db_str)<20:
+            print("No database!")
+            exit(0)
         parsed_yaml = sy.dirty_load(yaml_string=db_str, schema=anvil_yaml_schema(), allow_flow_style=True)
         # convert to OPENAPI strict YAML
         open_api_yaml = convert_anvil_to_openapi_yaml(parsed_yaml)
@@ -67,22 +70,21 @@ def main():
 
 
 if __name__ == '__main__':
-    if True:
-        comment = """
+    comment = """
 Input:  input/anvil.yaml
-        OR
-        input/openapi.yaml
+    OR
+    input/openapi.yaml
 Output: output/anvil_openapi.yaml  # conversion to openapi standard yaml
-        output/db_models.py  # pydantic type models
-        output/pydal_def.py  # database definition for pyDAL
+    output/db_models.py  # pydantic type models
+    output/pydal_def.py  # database definition for pyDAL
 
 Can convert the following:\n"""
-        doc_type = "anvil.works : openapi\n"
-        for key in OPENAPI_TYPES:
-            if key not in {"datetime", "date"}:
-                doc_type += f"{key} : {OPENAPI_TYPES[key]}\n"
-        for key in OPENAPI_FORMATS:
-            doc_type += f"{key} : {OPENAPI_FORMATS[key]}\n"
+    doc_type = "anvil.works : openapi\n"
+    for key in OPENAPI_TYPES:
+        if key not in {"datetime", "date"}:
+            doc_type += f"{key} : {OPENAPI_TYPES[key]}\n"
+    for key in OPENAPI_FORMATS:
+        doc_type += f"{key} : {OPENAPI_FORMATS[key]}\n"
 
     if not main():
         print(comment + doc_type)
