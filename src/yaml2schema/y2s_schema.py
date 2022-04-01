@@ -20,10 +20,10 @@ def openapi_schema() -> sy.Map:
         sy.Optional('description'): sy.Str()
     })
     schemas = sy.Map({
-        'schemas': sy.MapPattern(
+        'schemas': sy.EmptyDict() | sy.MapPattern(
             sy.Str(), sy.Map({
-                sy.Optional('required'): sy.Seq(sy.Str()),  # FUTURE : not implemented
-                'properties': sy.MapPattern(
+                sy.Optional('required'): sy.EmptyDict() | sy.Seq(sy.Str()),  # FUTURE : not implemented
+                sy.Optional('properties'): sy.EmptyDict() | sy.MapPattern(
                     sy.Str(), type_schema
                 )
             })
