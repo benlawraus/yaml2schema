@@ -30,9 +30,9 @@ def openapi_schema() -> sy.Map:
         )
     })
 
-    components = sy.Map({'components': schemas})
-    # return components
-    return sy.MapPattern(sy.Str(), sy.Any())
+    components = sy.Map({'components': sy.EmptyDict() | schemas})
+    return components
+    # return sy.MapPattern(sy.Str(), sy.Any())
 
 
 def openapi_preamble_schema():
