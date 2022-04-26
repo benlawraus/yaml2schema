@@ -141,6 +141,10 @@ def reorder_tables(openapi_yaml: sy.YAML) -> List[sy.Str]:
         table_yaml = openapi['schemas'][table]['properties']
         # for ordering
         table_references = []
+        try:
+            t=iter(table_yaml)
+        except TypeError:
+            raise TypeError(f"There is no columns in the datatable `{table.text}`")
         for field_name in table_yaml:
             # dict of this table description
             db_field = table_yaml[field_name]
