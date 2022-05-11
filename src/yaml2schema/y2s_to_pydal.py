@@ -62,6 +62,10 @@ def define_tables_of_db():
                 ondelete = ", ondelete='NO ACTION'"
             else:
                 ondelete = ""
+            # if the field is a file, may need an extra entry for filename
+            if type_of=='blob':
+                table_def_lines.append(
+                    tab1 * 3 + f", Field('{field_name}_name', type='upload', uploadfield='{field_name}')")
             table_def_lines.append(
                 tab1 * 3 + f", Field('{field_name}', type='{type_of}', default=None{ondelete})")
         # last parenthesis of table definition

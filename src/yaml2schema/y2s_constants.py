@@ -7,6 +7,7 @@ OPENAPI_TYPES = {'string': 'string',
                  'link_single': 'object',
                  'simpleObject': 'object',
                  'link_multiple': 'array',
+                 'media': 'string',
                  }
 OPENAPI_FORMATS = {'date': 'date',
                    'datetime': 'date-time',
@@ -14,6 +15,7 @@ OPENAPI_FORMATS = {'date': 'date',
                    'bigint': 'int64',
                    'number2': 'float',
                    'text': 'text',  # for pydal's large strings
+                   'media': 'byte'
                    }
 
 Openapi_preamble = """openapi: 3.0.3

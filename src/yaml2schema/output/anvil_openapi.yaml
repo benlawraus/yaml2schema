@@ -8,73 +8,24 @@ paths:
   /:
 components:
   schemas:
-    users:
-      properties:
-        email:
-          type: string
-        enabled:
-          type: boolean
-        signed_up:
-          type: string
-          format: date-time
-        password_hash:
-          type: string
-        confirmed_email:
-          type: boolean
-        email_confirmation_key:
-          type: string
-        n_password_failures:
-          type: integer
-        last_login:
-          type: string
-          format: date-time
-        remembered_logins:
-          type: object
-    email:
-      properties:
-        address:
-          type: string
-        created_by:
-          $ref: '#/components/schemas/users'
-        created_on:
-          type: string
-          format: date-time
-        place:
-          type: integer
-          format: int32
-    phone:
-      properties:
-        number:
-          type: string
-        created_by:
-          $ref: '#/components/schemas/users'
-        created_on:
-          type: string
-          format: date-time
-    contact:
+    categories:
       properties:
         name:
           type: string
-        phone:
-          $ref: '#/components/schemas/phone'
-        email_list:
-          type: array
-          items:
-            $ref: '#/components/schemas/email'
-        age:
-          type: number
-          format: float
-        created_by:
-          $ref: '#/components/schemas/users'
-        created_on:
+    articles:
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        image:
+          type: string
+          format: byte
+        created:
           type: string
           format: date-time
-        family:
-          type: array
-          items:
-            type: integer
-        uid:
-          type: integer
-          format: int64
-        father:
-          $ref: '#/components/schemas/contact'
+        updated:
+          type: string
+          format: date-time
+        category:
+          $ref: '#/components/schemas/categories'

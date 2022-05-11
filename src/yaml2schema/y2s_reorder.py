@@ -29,6 +29,8 @@ def find_type_of_string(sy_dict: sy.YAML) -> str:
     format_ = sy_dict.get('format', None)
     if format_ is not None:
         type_of = key_of_value(OPENAPI_FORMATS, format_.text)
+        if type_of == 'media':
+            type_of = 'blob'
     else:
         type_of = sy_dict['type'].text
     return type_of
@@ -111,7 +113,7 @@ def extract_type_of_field(db_field: sy.YAML) -> Tuple[str, str]:
         type_of = 'double'
         if db_field.get('format',None) is not None:
             if db_field['format'].text != 'float':
-                raise TypeError("'number' type with incorrect format field. Fix the openapi yaml and rerun. Thanks!")
+                raise TypeError("'number' type with incorrect format field. Fix anvil_refined.yaml and rerun. Thanks!")
     else:
         type_of = find_type_of_string(db_field)
     return type_of, reference
