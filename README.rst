@@ -111,3 +111,22 @@ simpleObject  anvil_reduced.yaml array   integer   List[int]     list:integer   
 simpleObject  anvil_reduced.yaml array   string    List[str]     list:string     array   string
 simpleObject                     object            Dict[str,Any] json            object
 ============= ================== ======= ========= ============= =============== ======= =========
+
+Examples anvil_refined.yaml
+----------------------------
+A *meetings* table has a *discussion* field that is a large text body and *peoples_names* that is a list of strings:
+In anvil_refined.yaml, for sqlite::
+
+    components:
+      schemas:
+        meetings:
+          properties:
+            peoples_names:
+              type: array
+              items:
+                type: string
+            discussion:
+              type: string
+              format: text
+
+
