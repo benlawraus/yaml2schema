@@ -15,6 +15,20 @@ def define_tables_of_db():
         db = DAL('sqlite://storage.sqlite', folder=abs_path)
     # in following definitions, delete 'ondelete=..' parameter and CASCADE will be ON.
 
+    if 'users' not in db.tables:
+        db.define_table('users'
+            , Field('email', type='string', default=None)
+            , Field('enabled', type='boolean', default=None)
+            , Field('uid', type='string', default=None)
+            , Field('owner_ref', type='string', default=None)
+            , Field('signed_up', type='datetime', default=None)
+            , Field('password_hash', type='string', default=None)
+            , Field('confirmed_email', type='boolean', default=None)
+            , Field('email_confirmation_key', type='string', default=None)
+            , Field('last_login', type='datetime', default=None)
+            , Field('remembered_logins', type='json', default=None)
+            , Field('n_password_failures', type='integer', default=None)
+        )
     if 'categories' not in db.tables:
         db.define_table('categories'
             , Field('name', type='string', default=None)

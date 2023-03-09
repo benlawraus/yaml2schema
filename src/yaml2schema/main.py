@@ -28,8 +28,8 @@ def main():
         anvil_yaml, newline_list = readfile(input_yaml, "")
         db_str = snip_out(anvil_yaml, 'db_schema')
         if '{}' in db_str and len(db_str)<20:
-            print("No database!")
-            exit(0)
+            print("!!!!!!!!!!!No database tables in anvil.yaml!!!!!!!!!!!")
+            db_str = readfile("user.yaml","")
         parsed_yaml = sy.dirty_load(yaml_string=db_str, schema=anvil_yaml_schema(), allow_flow_style=True)
         # convert to OPENAPI strict YAML
         open_api_yaml = convert_anvil_to_openapi_yaml(parsed_yaml)

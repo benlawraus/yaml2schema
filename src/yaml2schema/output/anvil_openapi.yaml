@@ -8,6 +8,32 @@ paths:
   /:
 components:
   schemas:
+    users:
+      properties:
+        email:
+          type: string
+        enabled:
+          type: boolean
+        uid:
+          type: string
+        owner_ref:
+          type: string
+        signed_up:
+          type: string
+          format: date-time
+        password_hash:
+          type: string
+        confirmed_email:
+          type: boolean
+        email_confirmation_key:
+          type: string
+        last_login:
+          type: string
+          format: date-time
+        remembered_logins:
+          type: object
+        n_password_failures:
+          type: integer
     categories:
       properties:
         name:
