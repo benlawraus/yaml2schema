@@ -6,7 +6,8 @@ from pydal import DAL, Field
 db = None
 logged_in_user = None
 abs_path = pathlib.Path(__file__).parent / 'database'
-
+if abs_path.exists() is False:
+    abs_path.mkdir()
 
 def define_tables_of_db():
     global db
