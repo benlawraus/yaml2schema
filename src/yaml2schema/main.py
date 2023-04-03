@@ -21,20 +21,22 @@ except ImportError:
 
 
 def main():
-    input_yaml = "input/anvil.yaml"
-    input_refined = "input/anvil_refined.yaml"
+    input_dir = "tests/yaml/in/"
+    output_dir = "tests/yaml/out/"
+    input_yaml = input_dir + "anvil.yaml"
+    input_refined = input_dir + "anvil_refined.yaml"
     try:
         # if there is anvil.yaml, converts to openapi.yaml
         anvil_yaml, newline_list = readfile(input_yaml, "")
         db_str = snip_out(anvil_yaml, 'db_schema')
         if '{}' in db_str and len(db_str)<20:
             print("!!!!!!!!!!!No database tables in anvil.yaml!!!!!!!!!!!")
-            db_str = readfile("user.yaml","")
+            db_str = readfile(input_dir+"user.yaml","")
         parsed_yaml = sy.dirty_load(yaml_string=db_str, schema=anvil_yaml_schema(), allow_flow_style=True)
         # convert to OPENAPI strict YAML
         open_api_yaml = convert_anvil_to_openapi_yaml(parsed_yaml)
+        # is there more to add in anvil_refined.yaml?
         try:
-            # is there more to add in anvil_refined.yaml?
             anvil_yaml_refined, newline_list = readfile(input_refined, "")
             db_str = anvil_yaml_refined[anvil_yaml_refined.find('components'):]
             refined_yaml = sy.dirty_load(yaml_string=db_str, schema=openapi_schema(), allow_flow_style=False)
@@ -43,7 +45,7 @@ def main():
             pass
     except FileNotFoundError:
         # if no anvil.yaml, read in the openapi.yaml
-        input_yaml = "input/openapi.yaml"
+        input_yaml = input_dir + "openapi.yaml"
         open_yaml, newline_list = readfile(input_yaml, "")
         db_str = open_yaml[open_yaml.find('components'):]
         open_api_yaml = sy.dirty_load(yaml_string=db_str, schema=openapi_schema(), allow_flow_style=False)
@@ -53,7 +55,7 @@ def main():
                                                 reorder_tables(open_api_yaml))
     # write the openapi yaml to a file
     preamble_yaml = sy.load(yaml_string=Openapi_preamble, schema=openapi_preamble_schema())
-    with open("output/anvil_openapi.yaml", "w") as f_out:
+    with open(output_dir + "anvil_openapi.yaml", "w") as f_out:
         f_out.write(preamble_yaml.as_yaml())
         f_out.write(ordered_openapi_yaml.as_yaml())
     if CLASS_MODELS:
@@ -64,7 +66,7 @@ def main():
             output=build_path("output/db_models.py", "."))
     # generate the pyDAL schema definitions
     pydal_def = openapi_to_pydal(ordered_openapi_yaml)
-    with open("output/pydal_def.py", "w") as f_out:
+    with open(output_dir + "pydal_def.py", "w") as f_out:
         f_out.write('\n'.join(pydal_def))
     return True
 
