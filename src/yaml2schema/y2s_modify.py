@@ -23,6 +23,8 @@ def snip_out(file_str:str, start_key:str)->str:
             save_this_one=True
         elif save_this_one is False:
             continue
+        elif len(line) == 0:
+            save_this_one=False
         elif line[0]==' ' or line[0]=='\t':
             good_string.append(line)
         else:
