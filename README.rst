@@ -50,13 +50,13 @@ File Structure
 The file structure is as follows::
 
     main.py # the entire software divided into function files
-    Input:  input/anvil.yaml  # file from downloaded anvil.works app
-            input/anvil_refined.yaml # OPTIONAL openapi format of fields requiring more information to specify
+    Input:  tests/yaml/in/anvil.yaml  # file from downloaded anvil.works app
+            tests/yaml/in/anvil_refined.yaml # OPTIONAL openapi format of fields requiring more information to specify
             OR
-            input/openapi.yaml
-    Output: output/anvil_openapi.yaml  # conversion to openapi standard yaml
-            output/db_models.py  # pydantic type models
-            output/pydal_def.py  # database definition for pyDAL
+            tests/yaml/in/openapi.yaml
+    Output: tests/yaml/out/anvil_openapi.yaml  # conversion to openapi standard yaml
+            tests/yaml/out/db_models.py  # pydantic type models
+            tests/yaml/out/pydal_def.py  # database definition for pyDAL
 
 
 How to use it?
@@ -71,9 +71,9 @@ Here is an example run in the terminal (good for python3.7+)::
     pip3 install strictyaml
     git clone https://github.com/benlawraus/yaml2schema.git
     cd yaml2schema/src/yaml2schema
-    # change input/anvil.yaml or input/openapi.yaml
+    # change anvil.yaml or openapi.yaml
     python3 main.py
-    # checkout your changes in the files in the output/ directory
+    # checkout your changes in the files in the out/ directory
 
 #.  You need to supply a `yaml` file, either `anvil.yaml` (created with your repo on `anvil.yaml <https://anvil.works>`_)
     or `openapi.yaml` which has the `components` section of the `openapi` standard.

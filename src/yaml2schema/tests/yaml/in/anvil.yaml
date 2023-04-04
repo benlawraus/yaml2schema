@@ -1,15 +1,41 @@
-dependencies: []
 services:
 - source: /runtime/services/tables.yml
   client_config: {}
-  server_config: {}
-package_name: CRUDnewsappwalkthrough
+  server_config: {auto_create_missing_columns: true}
+- source: /runtime/services/anvil/users.yml
+  client_config: {allow_signup: true, enable_automatically: true, use_email: true,
+    confirm_email: true, allow_remember_me: true, remember_me_days: 30}
+  server_config:
+    user_table: users
+    email_content:
+      confirm_address: {html: '<p>Thanks for registering your account with us. Please
+          click the following link to confirm that this is your account:
+
+
+          </p><p>{{confirm_link}}
+
+
+          </p><p>Thanks,
+
+          </p><p>The team</p>'}
+      reset_password: {html: '<p>Hi there,
+
+
+          </p><p>You have requested a password reset for your account {{email}}. To
+          reset your password, click the link below:
+
+
+          </p><p>{{reset_link}}
+
+
+          </p><p>This link will expire in ten minutes.</p>'}
+startup: {type: form, module: HomeForm}
+package_name: pyDALAnvilWorksApp
 allow_embedding: false
-name: 'Clone of Tutorial: News app'
-runtime_options: {version: 2, server_version: python3-sandbox, client_version: '3',
-  server_spec: null}
+name: pyDALAnvilWorksApp
+runtime_options: {version: 2, client_version: '3', server_version: python3-full}
 metadata: {}
-startup_form: Homepage
+startup_form: null
 db_schema:
   users:
     title: Users
@@ -22,12 +48,6 @@ db_schema:
     - name: enabled
       admin_ui: {width: 100}
       type: bool
-    - name: uid
-      admin_ui: {width: 200}
-      type: string
-    - name: owner_ref
-      admin_ui: {width: 200}
-      type: string
     - name: signed_up
       admin_ui: {width: 200}
       type: datetime
@@ -40,45 +60,88 @@ db_schema:
     - name: email_confirmation_key
       admin_ui: {width: 200}
       type: string
+    - name: n_password_failures
+      admin_ui: {width: 200}
+      type: number
+    - name: last_login
+      admin_ui: {width: 200}
+      type: datetime
     - name: last_login
       admin_ui: {width: 200}
       type: datetime
     - name: remembered_logins
       admin_ui: {width: 200}
       type: simpleObject
-    - name: n_password_failures
+    - name: remembered_logins
       admin_ui: {width: 200}
-      type: number
-  articles:
-    title: articles
+      type: simpleObject
+  email:
+    title: EMail
     client: none
     server: full
     columns:
-    - name: title
+    - name: address
       admin_ui: {width: 200}
       type: string
-    - name: content
-      admin_ui: {width: 200}
-      type: string
-    - name: image
-      admin_ui: {width: 200}
-      type: media
-    - name: created
-      admin_ui: {width: 200}
-      type: datetime
-    - name: updated
-      admin_ui: {width: 200}
-      type: datetime
-    - name: category
+    - name: created_by
       admin_ui: {width: 200}
       type: link_single
-      target: categories
-  categories:
-    title: categories
-    client: search
+      target: users
+    - name: created_on
+      admin_ui: {width: 200}
+      type: datetime
+    - name: place
+      admin_ui: {width: 200}
+      type: number
+  phone:
+    title: Phone
+    client: none
+    server: full
+    columns:
+    - name: number
+      admin_ui: {width: 200}
+      type: string
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: created_on
+      admin_ui: {width: 200}
+      type: datetime
+  contact:
+    title: Contact
+    client: none
     server: full
     columns:
     - name: name
       admin_ui: {width: 200}
       type: string
+    - name: phone
+      admin_ui: {width: 200}
+      type: link_single
+      target: phone
+    - name: email_list
+      admin_ui: {width: 200}
+      type: link_multiple
+      target: email
+    - name: age
+      admin_ui: {width: 200}
+      type: number
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: created_on
+      admin_ui: {width: 200}
+      type: datetime
+    - name: family
+      admin_ui: {width: 200}
+      type: simpleObject
+    - name: uid
+      admin_ui: {width: 200}
+      type: number
+    - name: father
+      admin_ui: {width: 200}
+      type: link_single
+      target: contact
 renamed: true

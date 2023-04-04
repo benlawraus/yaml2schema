@@ -62,8 +62,8 @@ def main():
         dcg.generate(
             open_api_yaml.as_yaml(),  # do not need ordered yaml here as dcg will also order it.
             input_file_type=dcg.InputFileType.OpenAPI,
-            input_filename="input/anvil.yaml",
-            output=build_path("output/db_models.py", "."))
+            input_filename=input_dir+"anvil.yaml",
+            output=build_path(output_dir+"db_models.py", "."))
     # generate the pyDAL schema definitions
     pydal_def = openapi_to_pydal(ordered_openapi_yaml)
     with open(output_dir + "pydal_def.py", "w") as f_out:
