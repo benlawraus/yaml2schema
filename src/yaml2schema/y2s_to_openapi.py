@@ -57,7 +57,10 @@ def convert_anvil_to_openapi_yaml(anvil_yaml: sy.YAML) -> sy.YAML:
                     prop_ref = {'$ref': "#/components/schemas/" + table_name}
                     property_dict[key_col].update({'items': prop_ref})
             else:
-                type_col = OPENAPI_TYPES[type_col]
+                try:
+                    type_col = OPENAPI_TYPES[type_col]
+                except KeyError:
+                    type_col = 'string'
 
                 property_dict.update({key_col: {'type': type_col}})
                 if format_col:
